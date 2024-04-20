@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: TPO_07
+
+serialization:
+  src: C:\Users\Volodymyr\IdeaProjects\TPO_07\src\main\resources\static\serial\
+

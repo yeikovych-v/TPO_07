@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Code Formatter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: #ddd;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding-top: 50px;
+        }
+
+        h1, h2 {
+            color: #ffa500;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        textarea {
+            width: 100%;
+
+            padding: 10px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background-color: #333;
+            color: #ddd;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background-color: #333;
+            color: #ddd;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ffa500;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ff8500;
+        }
+
+        #formattedCode {
+            margin-top: 20px;
+        }
+        .msg-error {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Java Code Formatter</h1>
+    <form id="codeForm" th:action="@{/}" th:object="${code}" method="POST">
+        <label for="code">Enter Java code:</label><br>
+        <textarea id="code" name="code" rows="10" cols="50" th:field="*{body}" required></textarea><br>
+        <label for="textId">Text ID:</label>
+        <input type="text" id="textId" name="textId" th:field="*{id}" required><br>
+        <label for="serializationDuration">Serialization Duration (seconds):</label>
+        <input type="number" id="serializationDuration" name="serializationDuration" min="10" max="7776000" th:field="*{secondsToExpire}" required><br>
+        <button type="submit">Format Code</button>
+        <div id="formattedCode">
+            <h2 th:if="${formattedCode}">Formatted Code</h2>
+            <textarea id="formatted" name="code" rows="10" cols="50" th:if="${formattedCode}" th:text="${formattedCode}" readonly></textarea><br>
+        </div>
+        <p class="msg-error" th:if="${formatErrMsg}"
+           th:text="${formatErrMsg}">Validation error</p>
+        <p class="msg-error" th:if="${serializationErrMsg}"
+           th:text="${serializationErrMsg}">Validation error</p>
+    </form>
+</div>
+
+</body>
+</html>
