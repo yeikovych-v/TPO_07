@@ -4,9 +4,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import pl.pja.s28201.tpo_07.model.CodeFormat;
 import pl.pja.s28201.tpo_07.repository.InMemoryCodeFormatRepository;
-import pl.pja.s28201.tpo_07.service.SerializationService;
+import pl.pja.s28201.tpo_07.service.FileAndSerializationService;
 
 @SpringBootApplication
 public class Tpo07Application {
@@ -16,9 +15,10 @@ public class Tpo07Application {
     }
 
     @Bean
-    public CommandLineRunner run(InMemoryCodeFormatRepository inMemoryDb, SerializationService serializationService) {
+    public CommandLineRunner run(InMemoryCodeFormatRepository inMemoryDb, FileAndSerializationService fileAndSerializationService) {
         return args -> {
-            inMemoryDb.addAll(serializationService.deserializeAll().values());
+            inMemoryDb.addAll(fileAndSerializationService.deserializeAll().values());
+            fileAndSerializationService.deleteOnTimeout();
         };
     }
 }
