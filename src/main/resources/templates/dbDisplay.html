@@ -1,0 +1,85 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Code Formatter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: #ddd;
+        }
+
+        h1 {
+            margin: 20px auto;
+            text-align: center;
+            color: #ffa500;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #555;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: #ffa500;
+        }
+
+        tr:nth-child(even) {
+            background-color: #444;
+        }
+
+        tr:hover {
+            background-color: #555;
+        }
+
+        .back-button {
+            display: block;
+            width: 77%;
+            margin: 20px auto;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            background-color: #ffa500;
+            color: #fff;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .back-button:hover {
+            background-color: #ff8500;
+        }
+    </style>
+</head>
+<body>
+<h1>Code Records Table</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Body</th>
+        <th>Time Serialized</th>
+        <th>Seconds to Expire</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="code : ${dtos}">
+        <td th:text="${code.id}"></td>
+        <td th:text="${code.body}"></td>
+        <td th:text="${code.timeSerialized}"></td>
+        <td th:text="${code.secondsToExpire}"></td>
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{/}" class="back-button">Back</a>
+</body>
+</html>
