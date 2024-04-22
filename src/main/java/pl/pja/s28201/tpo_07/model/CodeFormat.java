@@ -4,7 +4,7 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class CodeFormat implements Serializable {
+public class CodeFormat implements Externalizable {
 
     private int id;
     private String body;
@@ -66,16 +66,16 @@ public class CodeFormat implements Serializable {
                 '}';
     }
 
-    @Serial
-    private void writeObject(ObjectOutputStream out) throws IOException {
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
         out.writeInt(id);
         out.writeObject(body);
         out.writeObject(timeSerialized.toString());
         out.writeLong(secondsToExpire);
     }
 
-    @Serial
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         id = in.readInt();
         body = (String) in.readObject();
         timeSerialized = LocalDateTime.parse((String) in.readObject());
