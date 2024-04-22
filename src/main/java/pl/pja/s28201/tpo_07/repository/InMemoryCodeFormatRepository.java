@@ -4,10 +4,9 @@ import org.springframework.stereotype.Repository;
 import pl.pja.s28201.tpo_07.exception.CodeIdAlreadyExistsException;
 import pl.pja.s28201.tpo_07.model.CodeFormat;
 
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -31,5 +30,14 @@ public class InMemoryCodeFormatRepository {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    public void delete(int id) {
+        codeFormats.remove(id);
+        System.out.printf("Info::InMemoryDB:: Record with index [%d] has expired and was deleted.%n", id);
+    }
+
+    public List<CodeFormat> findAllAsList() {
+        return codeFormats.values().stream().toList();
     }
 }
