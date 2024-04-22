@@ -50,7 +50,7 @@
         button {
             padding: 10px 20px;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             background-color: #ffa500;
             color: #fff;
             cursor: pointer;
@@ -68,6 +68,22 @@
             text-align: center;
             margin-top: 10px;
         }
+
+        .back-button {
+            text-decoration: none;
+            font-size: 14px;
+            margin-left: 10px;
+            padding: 10px 20px 10px;
+            border: none;
+            border-radius: 10px;
+            background-color: #ffa500;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            background-color: #ff8500;
+        }
     </style>
 </head>
 <body>
@@ -81,6 +97,7 @@
         <label for="serializationDuration">Serialization Duration (seconds):</label>
         <input type="number" id="serializationDuration" name="serializationDuration" min="10" max="7776000" th:field="*{secondsToExpire}" required><br>
         <button type="submit">Format Code</button>
+        <a th:href="@{/codes}" class="back-button">View Existing Records</a>
         <div id="formattedCode">
             <h2 th:if="${formattedCode}">Formatted Code</h2>
             <textarea id="formatted" name="code" rows="10" cols="50" th:if="${formattedCode}" th:text="${formattedCode}" readonly></textarea><br>
