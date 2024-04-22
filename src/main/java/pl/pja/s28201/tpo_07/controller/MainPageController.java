@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.pja.s28201.tpo_07.exception.CodeIdAlreadyExistsException;
 import pl.pja.s28201.tpo_07.model.CodeFormat;
 import pl.pja.s28201.tpo_07.repository.InMemoryCodeFormatRepository;
+import pl.pja.s28201.tpo_07.service.FileAndSerializationService;
 import pl.pja.s28201.tpo_07.service.FormatterService;
-import pl.pja.s28201.tpo_07.service.SerializationService;
 
 @Controller
 @RequestMapping("/")
@@ -20,13 +20,13 @@ public class MainPageController {
 
     private final FormatterService formatterService;
     private final InMemoryCodeFormatRepository inMemoryRepository;
-    private final SerializationService serializationService;
+    private final FileAndSerializationService fileAndSerializationService;
 
     @Autowired
-    public MainPageController(FormatterService formatterService, InMemoryCodeFormatRepository inMemoryRepository, SerializationService serializationService) {
+    public MainPageController(FormatterService formatterService, InMemoryCodeFormatRepository inMemoryRepository, FileAndSerializationService fileAndSerializationService) {
         this.formatterService = formatterService;
         this.inMemoryRepository = inMemoryRepository;
-        this.serializationService = serializationService;
+        this.fileAndSerializationService = fileAndSerializationService;
     }
 
     @GetMapping
@@ -49,7 +49,7 @@ public class MainPageController {
 
             format.setBody(formattedCode);
             inMemoryRepository.add(format);
-            serializationService.serialize(format);
+            fileAndSerializationService.serialize(format);
 
             return "main";
         } catch (FormatterException e) {
